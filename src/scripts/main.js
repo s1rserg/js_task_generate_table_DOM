@@ -354,31 +354,26 @@ const people = [
   },
 ];
 
-const neededKeys = ['name', 'sex', 'born', 'died'];
 const dashboard = document.querySelector('.dashboard');
 
-people.forEach((person) => {
-  const tableRow = document.createElement('tr');
+for (const person of people) {
+  const row = document.createElement('tr');
 
-  for (const key of neededKeys) {
-    const tableData = document.createElement('td');
+  const values = [
+    person.name,
+    person.sex === 'm' ? 'Male' : 'Female',
+    person.born,
+    person.died,
+    person.died - person.born,
+    Math.ceil(person.died / 100),
+  ];
 
-    if (key === 'sex') {
-      tableData.textContent = person[key] === 'm' ? 'Male' : 'Female';
-    } else {
-      tableData.textContent = person[key];
-    }
+  for (const value of values) {
+    const td = document.createElement('td');
 
-    tableRow.append(tableData);
+    td.textContent = value;
+    row.appendChild(td);
   }
 
-  const tableDataAge = document.createElement('td');
-  const tableDataCentury = document.createElement('td');
-
-  tableDataAge.textContent = person.died - person.born;
-  tableDataCentury.textContent = Math.ceil(person.died / 100);
-
-  tableRow.append(tableDataAge, tableDataCentury);
-
-  dashboard.append(tableRow);
-});
+  dashboard.appendChild(row);
+}
