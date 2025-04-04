@@ -354,7 +354,31 @@ const people = [
   },
 ];
 
-// eslint-disable-next-line no-console
-console.log(people); // you can remove it
+const neededKeys = ['name', 'sex', 'born', 'died'];
+const dashboard = document.querySelector('.dashboard');
 
-// write your code here
+people.forEach((person) => {
+  const tableRow = document.createElement('tr');
+
+  for (const key of neededKeys) {
+    const tableData = document.createElement('td');
+
+    if (key === 'sex') {
+      tableData.textContent = person[key] === 'm' ? 'Male' : 'Female';
+    } else {
+      tableData.textContent = person[key];
+    }
+
+    tableRow.append(tableData);
+  }
+
+  const tableDataAge = document.createElement('td');
+  const tableDataCentury = document.createElement('td');
+
+  tableDataAge.textContent = person.died - person.born;
+  tableDataCentury.textContent = Math.ceil(person.died / 100);
+
+  tableRow.append(tableDataAge, tableDataCentury);
+
+  dashboard.append(tableRow);
+});
